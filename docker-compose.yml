@@ -1,0 +1,28 @@
+version: '1'
+services:
+    mysql:
+        container_name: mysql_docker
+        environment:
+            MYSQL_DATABASE: dhileepan
+            MYSQL_PASSWORD: root123
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: app_root
+        image: 'mysql:latest'
+        network_mode: host
+        ports:
+            - '3306:3306'
+    spring:
+        container_name: spring-docker
+        depends_on:
+            - mysql
+        image: 'dhileepankruschev/taskmanagersvc:latest'
+        network_mode: host
+        ports:
+            - '8082:8082'
+        restart: always
+	angular:
+        container_name: angular-docker
+        image: 'dhileepankruschev/taskmanagerui:latest'
+        network_mode: host
+        ports:
+            - '4200:4200'
